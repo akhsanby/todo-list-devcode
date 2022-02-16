@@ -1,0 +1,31 @@
+// custom colors
+$primary: #16abf8;
+$danger: #ed4c5c;
+$secondary: #f4f4f4;
+
+$modal-content-border-radius: 12px;
+
+$utilities: (
+  "cursor": (
+    property: cursor,
+    values: pointer,
+  ),
+  "font-size": (
+    property: font-size,
+    class: text,
+    values: (
+      12px: 12px,
+      14px: 14px,
+      18px: 18px,
+    ),
+  ),
+  "border-radius": (
+    property: border-radius,
+    class: border-radius,
+    values: (
+      12px: 12px,
+      18px: 18px,
+      45px: 45px,
+    ),
+  ),
+);
