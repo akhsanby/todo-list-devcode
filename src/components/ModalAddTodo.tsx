@@ -71,7 +71,7 @@ export default function ModalAddTodo({ showModal, setShowModal }: ModalAddTodoPr
   const handleSubmitNewTodo = async (e: any) => {
     e.preventDefault();
     try {
-      const response = await axios.post("https://todo.api.devcode.gethired.id/todo-items", item);
+      const response = await axios.post("https://todo.api.devcode.gethired.id/todo-items?email=akhsanby%40gmail.com", item);
       console.log(response.status);
     } catch (error) {
       console.log(error);

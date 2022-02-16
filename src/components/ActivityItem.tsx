@@ -17,9 +17,9 @@ export default function ActivityItem({ item }: activityItemProps) {
   const [activityId, setActivityId] = useState(null);
 
   return (
-    <div data-cy="activity-item" className="card border-light shadow px-3 py-2 bg-body" style={{ height: "234px", width: "100%", borderRadius: "12px" }}>
+    <div data-cy="activity-item" className="card border-light shadow px-3 py-2 bg-body" style={{ height: "234px", borderRadius: "12px" }}>
       <div className="card-body d-flex flex-column justify-content-between">
-        <Link to={`/detail/${item.id}`} className="text-decoration-none">
+        <Link to={`/detail/${item.id}`} className="text-decoration-none text-dark">
           <h5 data-cy="activity-item-title" className="card-title fw-bold">
             {item.title}
           </h5>
@@ -38,7 +38,7 @@ export default function ActivityItem({ item }: activityItemProps) {
             src={TrashIcon}
             alt="delete"
           />
-          {showModal && <ModalDelete activityId={activityId} showModal={showModal} setShowModal={setShowModal} />}
+          <ModalDelete activityId={activityId} showModal={showModal} setShowModal={setShowModal} />
         </div>
       </div>
     </div>

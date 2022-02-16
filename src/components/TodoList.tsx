@@ -33,7 +33,7 @@ export default function TodoList() {
 
   async function fetchActivityListFromAPI(activityId: any) {
     try {
-      const response = await axios.get(`https://todo.api.devcode.gethired.id/activity-groups/${activityId}`);
+      const response = await axios.get(`https://todo.api.devcode.gethired.id/activity-groups/${activityId}?email=akhsanby%40gmail.com`);
       setTodoData(response.data);
       setActivityTitle(response.data.title);
     } catch (error) {
@@ -41,23 +41,21 @@ export default function TodoList() {
     }
   }
 
-  const handleEditTodoTitle = async () => {
-    setActivityTitleEdited(!isActivityTitleEdited);
-    if (todoData.title !== activityTitle) {
-      try {
-        const response = await axios.patch(`https://todo.api.devcode.gethired.id/activity-groups/${params.activityId}`, {
-          title: activityTitle,
-        });
-        console.log(`Status ${response.status} ${response.statusText}`);
-      } catch (error) {
-        console.log(error);
-      }
+  const handleEditTodoTitle = async (activityTitle: string) => {
+    setActivityTitle(activityTitle);
+    try {
+      const response = await axios.patch(`https://todo.api.devcode.gethired.id/activity-groups/${params.activityId}?email=akhsanby%40gmail.com`, {
+        title: activityTitle,
+      });
+      console.log(`Status ${response.status} ${response.statusText}`);
+    } catch (error) {
+      console.log(error);
     }
   };
 
   useEffect(() => {
     fetchActivityListFromAPI(params.activityId);
-  }, []);
+  }, [todoData]);
 
   return (
     <Layout>
@@ -67,13 +65,13 @@ export default function TodoList() {
             <img data-cy="todo-back-button" src={arrowLeftIcon} alt="back" />
           </Link>
           {isActivityTitleEdited ? (
-            <input type="text" className="fw-bold bg-transparent outline-none" value={activityTitle} onChange={(e: any) => setActivityTitle(e.target.value)} style={{ margin: "0 30px" }} />
+            <input type="text" className="fw-bold bg-transparent outline-none" value={activityTitle} onChange={(e: any) => handleEditTodoTitle(e.target.value)} style={{ margin: "0 30px" }} />
           ) : (
-            <p className="fw-bold" data-cy="todo-title" style={{ margin: "0 30px" }}>
+            <p className="fw-bold" data-cy="todo-title" style={{ margin: "0 30px" }} onClick={() => setActivityTitleEdited(!isActivityTitleEdited)}>
               {activityTitle}
             </p>
           )}
-          <img data-cy="todo-title-edit-button" className="cursor-pointer" src={pencilIcon} alt="edit" onClick={handleEditTodoTitle} />
+          <img data-cy="todo-title-edit-button" className="cursor-pointer" src={pencilIcon} alt="edit" onClick={() => setActivityTitleEdited(!isActivityTitleEdited)} />
         </div>
         <div className="d-flex align-items-center gap-3">
           <Sort />
@@ -81,7 +79,7 @@ export default function TodoList() {
             <img src={plusIcon} alt="add" />
             Tambah
           </button>
-          {showModal && <ModalAddTodo showModal={showModal} setShowModal={setShowModal} />}
+          <ModalAddTodo showModal={showModal} setShowModal={setShowModal} />
         </div>
       </div>
       <div className="container d-flex my-3">

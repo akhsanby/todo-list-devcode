@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 
 // components
 import ActivityItem from "./ActivityItem";
-import ModalDelete from "./ModalDelete";
+import ModalDelete, { AlertDelete } from "./ModalDelete";
 
 // image and icon
 import activityImage from "../img/activity-empty-state.svg";
@@ -18,10 +18,11 @@ import { activityDataItem } from "../config/types";
 
 export default function ActivityList() {
   const [activityData, setActivityData] = useState([]);
+  const [showAlert, setShowAlert] = useState<boolean>(false);
 
   async function fetchActivityListFromAPI() {
     try {
-      const response = await axios.get("https://todo.api.devcode.gethired.id/activity-groups?email=yoga%2B1%40skyshi.io");
+      const response = await axios.get("https://todo.api.devcode.gethired.id/activity-groups?email=akhsanby%40gmail.com");
       const result = response.data.data;
       setActivityData(result);
     } catch (error) {
@@ -33,7 +34,7 @@ export default function ActivityList() {
     try {
       const response = await axios.post("https://todo.api.devcode.gethired.id/activity-groups", {
         title: "New Activity",
-        email: "yoga+1@skyshi.io",
+        email: "akhsanby@gmail.com",
       });
       console.log(response.status);
     } catch (error) {
@@ -43,7 +44,7 @@ export default function ActivityList() {
 
   useEffect(() => {
     fetchActivityListFromAPI();
-  }, []);
+  }, [activityData]);
 
   return (
     <Layout>
@@ -60,7 +61,7 @@ export default function ActivityList() {
         {activityData ? (
           <div className="row" style={{ rowGap: "26px" }}>
             {activityData?.map((item: activityDataItem) => (
-              <div className="col-3" key={item.id}>
+              <div className="col-lg-3 col-md-4 col-sm-6" key={item.id}>
                 <ActivityItem item={item} />
               </div>
             ))}

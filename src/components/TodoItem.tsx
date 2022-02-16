@@ -5,7 +5,7 @@ import PriorityIndicator from "./PriorityIndicator";
 import pencilIcon from "../img/icons/pencil.svg";
 import trashIcon from "../img/icons/trash.svg";
 import ModalAddTodo, { ModalEditTodo } from "./ModalAddTodo";
-import { ModalDeleteItem } from "./ModalDelete";
+import { AlertDelete, ModalDeleteItem } from "./ModalDelete";
 
 export default function TodoItem({ item }) {
   const [showModal, setShowModal] = useState<boolean>(false);
@@ -30,10 +30,10 @@ export default function TodoItem({ item }) {
             {item.title}
           </p>
           <img className="cursor-pointer" onClick={() => setShowModal(true)} data-cy="todo-item-edit-button" src={pencilIcon} alt="edit" />
-          {showModal && <ModalEditTodo isActive={isActive} item={item} showModal={showModal} setShowModal={setShowModal} />}
+          <ModalEditTodo isActive={isActive} item={item} showModal={showModal} setShowModal={setShowModal} />
         </div>
         <img className="cursor-pointer" onClick={() => setShowModalDeleteItem(true)} data-cy="todo-item-delete-button" src={trashIcon} alt="delete" />
-        {showModalDeleteItem && <ModalDeleteItem item={item} showModalDeleteItem={showModalDeleteItem} setShowModalDeleteItem={setShowModalDeleteItem} />}
+        <ModalDeleteItem item={item} showModalDeleteItem={showModalDeleteItem} setShowModalDeleteItem={setShowModalDeleteItem} />
       </div>
     </div>
   );

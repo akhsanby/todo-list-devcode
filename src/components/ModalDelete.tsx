@@ -14,7 +14,9 @@ export default function ModalDelete({ activityId, showModal, setShowModal }: Mod
   const handleDeleteActivity = async (id: number) => {
     try {
       const response = await axios.delete(`https://todo.api.devcode.gethired.id/activity-groups/${id}`);
-      console.log(response.status);
+      if (response.status === 200) {
+        setShowModal(false);
+      }
     } catch (error) {
       console.log(error);
     }
@@ -33,7 +35,7 @@ export default function ModalDelete({ activityId, showModal, setShowModal }: Mod
               Batal
             </Button>
             <Button className="border-radius-45px text-white px-5 py-2" data-cy="modal-delete-confirm-button" variant="danger" onClick={() => handleDeleteActivity(activityId)} style={{ fontWeight: "600" }}>
-              Simpan
+              Hapus
             </Button>
           </div>
         </Modal.Body>
@@ -45,8 +47,7 @@ export default function ModalDelete({ activityId, showModal, setShowModal }: Mod
 export function ModalDeleteItem({ item, showModalDeleteItem, setShowModalDeleteItem }: ModalDeleteItemProps) {
   const handleDeleteItem = async () => {
     try {
-      const response = await axios.delete(`https://todo.api.devcode.gethired.id/todo-items/${item.id}`);
-      console.log(response.status);
+      await axios.delete(`https://todo.api.devcode.gethired.id/todo-items/${item.id}?email=akhsanby%40gmail.com`);
     } catch (error) {
       console.log(error);
     }
@@ -65,7 +66,7 @@ export function ModalDeleteItem({ item, showModalDeleteItem, setShowModalDeleteI
               Batal
             </Button>
             <Button className="border-radius-45px text-white px-5 py-2" data-cy="modal-delete-confirm-button" variant="danger" onClick={handleDeleteItem} style={{ fontWeight: "600" }}>
-              Simpan
+              Hapus
             </Button>
           </div>
         </Modal.Body>
@@ -74,20 +75,18 @@ export function ModalDeleteItem({ item, showModalDeleteItem, setShowModalDeleteI
   );
 }
 
-export function AlertDelete() {
+export function AlertDelete({ showAlert, setShowAlert }) {
   return (
-    <div data-cy="modal-information" className="shadow modal fade" id="alertDelete">
-      <div className="modal-dialog modal-dialog-centered">
-        <div className="modal-content border-radius-12px">
-          <div className="modal-body d-flex align-items-center gap-2">
-            <img data-cy="modal-information-icon" src={alertDeleteIcon} alt="alertDelete" />
-            <span data-cy="modal-information-title" style={{ fontSize: "14px", fontWeight: "500" }}>
-              Activity berhasil dihapus
-            </span>
-          </div>
-        </div>
+    <Modal data-cy="modal-information" show={showAlert} onHide={() => setShowAlert(false)} centered>
+      <div className="modal-content border-radius-12px">
+        <Modal.Body className="d-flex align-items-center gap-2">
+          <img data-cy="modal-information-icon" src={alertDeleteIcon} alt="alertDelete" />
+          <span data-cy="modal-information-title" style={{ fontSize: "14px", fontWeight: "500" }}>
+            Activity berhasil dihapus
+          </span>
+        </Modal.Body>
       </div>
-    </div>
+    </Modal>
   );
 }
 
