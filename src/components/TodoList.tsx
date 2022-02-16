@@ -57,7 +57,7 @@ export default function TodoList() {
 
   useEffect(() => {
     fetchActivityListFromAPI(params.activityId);
-  }, [todoData]);
+  }, []);
 
   return (
     <Layout>

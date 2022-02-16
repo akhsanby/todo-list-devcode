@@ -34,7 +34,7 @@ export default function ActivityItem({ item }: activityItemProps) {
               setActivityId(item.id);
             }}
             className="cursor-pointer"
-            data-cy="activity-item-delete-icon"
+            data-cy="activity-item-delete-button"
             src={TrashIcon}
             alt="delete"
           />
